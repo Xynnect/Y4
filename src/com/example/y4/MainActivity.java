@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
+	public static LogData sharedLogData = new LogData();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
