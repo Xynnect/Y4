@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 
 	public static LogData sharedLogData = new LogData();
+	public TextView textView1;
+	public Button button1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +23,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		Button button1 = (Button)findViewById(R.id.button1); 
 		TextView textView1 = (TextView)findViewById(R.id.textView1); 
+
 	}
 
 	@Override
@@ -33,6 +37,10 @@ public class MainActivity extends Activity {
 	    super.onDestroy();  // Always call the superclass  
 	    // Stop method tracing that the activity started during onCreate()
 	    android.os.Debug.stopMethodTracing();
+	    String line = "onDestroy";
+	    sharedLogData.addLine(line);
+	    sharedLogData.registerView(textView1);
+	    sharedLogData.removeView(textView1);
 	}
 	@Override
 	protected void onStart() {
@@ -49,12 +57,28 @@ public class MainActivity extends Activity {
         // with the android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS action
         // to take the user to the Settings screen to enable GPS when they click "OK"
     }
+    String line = "onStart";
+    sharedLogData.addLine(line);
+    sharedLogData.registerView(textView1);
+    Log.v("dd","onStart");
 	}
+	
+	@Override
+	protected void onResume(){
+		super.onResume();
+	String line = "onResume";
+    sharedLogData.addLine(line);
+    sharedLogData.registerView(textView1);
+	}
+	
+
 
 	@Override
 	protected void onRestart() {
     super.onRestart();  // Always call the superclass method first
-    
+    String line = "onRestart";
+    sharedLogData.addLine(line);	
+    sharedLogData.registerView(textView1);
     // Activity being restarted from stopped state    
     }
     public void gotonewAvtivity(View view){
